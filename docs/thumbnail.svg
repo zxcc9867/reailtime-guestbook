@@ -1,0 +1,75 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Realtime Guestbook project thumbnail</title>
+  <desc id="desc">A polished preview image for a realtime guestbook app with post-it notes, photo upload, drawing, and live comments.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7D6"/>
+      <stop offset="0.5" stop-color="#E9F7F1"/>
+      <stop offset="1" stop-color="#F6E8FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#253047" flood-opacity="0.18"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#253047" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1110" cy="116" r="132" fill="#FFE08A" opacity="0.75"/>
+  <circle cx="130" cy="540" r="160" fill="#BDEDE1" opacity="0.65"/>
+
+  <g transform="translate(88 78)">
+    <rect x="0" y="0" width="486" height="486" rx="26" fill="#FFFFFF" filter="url(#shadow)"/>
+    <rect x="34" y="34" width="418" height="418" rx="18" fill="#F6F1E8"/>
+    <path d="M34 112H452" stroke="#D6CBBE" stroke-width="2"/>
+    <path d="M34 190H452" stroke="#D6CBBE" stroke-width="2"/>
+    <path d="M34 268H452" stroke="#D6CBBE" stroke-width="2"/>
+    <path d="M34 346H452" stroke="#D6CBBE" stroke-width="2"/>
+
+    <g transform="translate(74 72) rotate(-5)" filter="url(#softShadow)">
+      <rect width="150" height="132" rx="12" fill="#FFE66D"/>
+      <path d="M24 38H124" stroke="#7B6422" stroke-width="7" stroke-linecap="round"/>
+      <path d="M24 63H108" stroke="#7B6422" stroke-width="7" stroke-linecap="round"/>
+      <path d="M24 88H86" stroke="#7B6422" stroke-width="7" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(244 94) rotate(4)" filter="url(#softShadow)">
+      <rect width="148" height="128" rx="12" fill="#FFB1A7"/>
+      <rect x="24" y="28" width="100" height="56" rx="10" fill="#FFF8F4"/>
+      <circle cx="53" cy="56" r="14" fill="#6CB6FF"/>
+      <path d="M75 82L99 55L124 84H24L52 66L75 82Z" fill="#8BD67D"/>
+    </g>
+
+    <g transform="translate(104 254) rotate(3)" filter="url(#softShadow)">
+      <rect width="142" height="128" rx="12" fill="#B9EBC9"/>
+      <path d="M29 82C51 32 79 112 109 47" stroke="#1E6F60" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="111" cy="46" r="8" fill="#1E6F60"/>
+    </g>
+
+    <g transform="translate(278 280) rotate(-4)" filter="url(#softShadow)">
+      <rect width="132" height="112" rx="12" fill="#CDBBFF"/>
+      <path d="M26 35H104" stroke="#4E3B83" stroke-width="7" stroke-linecap="round"/>
+      <path d="M26 60H86" stroke="#4E3B83" stroke-width="7" stroke-linecap="round"/>
+      <path d="M26 84H98" stroke="#4E3B83" stroke-width="7" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(634 112)">
+    <text x="0" y="0" fill="#263238" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="1.5">REALTIME GUESTBOOK</text>
+    <text x="0" y="86" fill="#17212B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800">Photo, Drawing,</text>
+    <text x="0" y="168" fill="#17212B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800">Live Wall</text>
+    <rect x="4" y="206" width="476" height="5" rx="2.5" fill="#FF8B6A"/>
+    <text x="0" y="270" fill="#40505F" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500">A Vite + React + Supabase app for event notes,</text>
+    <text x="0" y="310" fill="#40505F" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500">canvas drawings, uploads, and realtime comments.</text>
+
+    <g transform="translate(0 368)">
+      <rect width="178" height="58" rx="12" fill="#17212B"/>
+      <text x="28" y="38" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Supabase</text>
+      <rect x="198" width="128" height="58" rx="12" fill="#FFFFFF" stroke="#D5DEE6" stroke-width="2"/>
+      <text x="232" y="38" fill="#17212B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">React</text>
+      <rect x="346" width="102" height="58" rx="12" fill="#FFFFFF" stroke="#D5DEE6" stroke-width="2"/>
+      <text x="373" y="38" fill="#17212B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Vite</text>
+    </g>
+  </g>
+</svg>
