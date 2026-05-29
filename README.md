@@ -4,6 +4,16 @@
 
 Realtime Guestbook은 방문자가 사진을 업로드하거나 캔버스에 직접 그림을 그려 방명록을 남기고, 다른 방문자들이 `/wall`에서 포스트잇 형태로 실시간 확인할 수 있는 디지털 방명록 웹 앱입니다.
 
+## 실제 앱 화면
+
+### 작성 화면
+
+![방명록 작성 화면](docs/screenshots/home.png)
+
+### 실시간 방명록 벽
+
+![실시간 방명록 벽 화면](docs/screenshots/wall.png)
+
 ## 프로젝트 목적
 
 행사, 전시, 모임, 클래스처럼 현장에서 여러 사람이 짧은 메시지와 이미지를 남기는 상황을 위해 만들었습니다. 단순한 입력 폼이 아니라 사진, 드로잉, 실시간 벽, 댓글 흐름을 한 번에 제공하는 MVP입니다.
@@ -57,6 +67,9 @@ memory-bank/
   progress.md
 docs/
   thumbnail.svg
+  screenshots/
+    home.png
+    wall.png
 ```
 
 ## 실행 방법

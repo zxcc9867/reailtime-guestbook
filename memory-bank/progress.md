@@ -30,6 +30,8 @@
 - Added `docs/thumbnail.svg` as the README project thumbnail.
 - Verified `npm test`, `npm run lint`, and `npm run build` pass after the README and thumbnail update.
 - Added `.vite/` to `.gitignore` so local Vite cache output is not tracked.
+- Captured actual local app screenshots for the home page and realtime wall using Edge headless.
+- Added the app screenshots to README under `docs/screenshots/home.png` and `docs/screenshots/wall.png`.
 
 ## Observed Remote Supabase State
 
