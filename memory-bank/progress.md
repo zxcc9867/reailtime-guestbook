@@ -29,6 +29,7 @@
 - Rewrote README with project overview, purpose, features, stack, setup, Supabase configuration, verification, and Vercel deployment guidance.
 - Added `docs/thumbnail.svg` as the README project thumbnail.
 - Verified `npm test`, `npm run lint`, and `npm run build` pass after the README and thumbnail update.
+- Added `.vite/` to `.gitignore` so local Vite cache output is not tracked.
 
 ## Observed Remote Supabase State
 
