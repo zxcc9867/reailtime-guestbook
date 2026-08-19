@@ -1,48 +1,63 @@
 # Realtime Guestbook
 
+[English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
+
 ![Realtime Guestbook thumbnail](docs/thumbnail.svg)
 
-Realtime Guestbook은 방문자가 사진을 업로드하거나 캔버스에 직접 그림을 그려 방명록을 남기고, 다른 방문자들이 `/wall`에서 포스트잇 형태로 실시간 확인할 수 있는 디지털 방명록 웹 앱입니다.
+A digital guestbook where visitors upload a photo or draw on a canvas, leave a short message, and see new post-it notes and comments appear in real time on a shared wall.
 
-## 실제 앱 화면
+## Product intent
 
-### 작성 화면
+The project targets events, exhibitions, meetups, and classes where many people want to leave lightweight visual messages from their phones. It combines creation, media storage, a shared wall, detail views, and realtime conversation in one responsive MVP.
 
-![방명록 작성 화면](docs/screenshots/home.png)
+## Screens
 
-### 실시간 방명록 벽
+### Create an entry
 
-![실시간 방명록 벽 화면](docs/screenshots/wall.png)
+![Guestbook creation screen](docs/screenshots/home.png)
 
-## 프로젝트 목적
+### Shared realtime wall
 
-행사, 전시, 모임, 클래스처럼 현장에서 여러 사람이 짧은 메시지와 이미지를 남기는 상황을 위해 만들었습니다. 단순한 입력 폼이 아니라 사진, 드로잉, 실시간 벽, 댓글 흐름을 한 번에 제공하는 MVP입니다.
+![Realtime guestbook wall](docs/screenshots/wall.png)
 
-## 주요 기능
+## Core capabilities
 
-- 사진 업로드 또는 캔버스 드로잉으로 방명록 작성
-- 이름 또는 닉네임과 짧은 메시지 입력
-- Supabase Storage에 이미지 저장
-- `guestbook` 테이블에 방명록 post 저장
-- `/wall`에서 포스트잇 카드 형태로 방명록 표시
-- Supabase Realtime 기반 새 방명록 실시간 반영
-- 방명록 상세 모달과 실시간 댓글 스레드
-- 모바일/데스크톱 반응형 레이아웃
-- 입력 검증, 로딩 상태, 오류 메시지, 모달 Escape 닫기 지원
+- Photo upload or in-browser canvas drawing
+- Name or nickname and short message input
+- Image persistence in Supabase Storage
+- Guestbook post persistence in Supabase Postgres
+- Post-it style cards on `/wall`
+- Realtime insertion of new guestbook entries
+- Detail modal with a realtime comment thread
+- Mobile and desktop responsive layouts
+- Input validation, loading states, actionable errors, and Escape-to-close modal behavior
 
-## 사용 기술
+## Technology
 
 - React 19
 - TypeScript
-- Vite
-- React Router
-- Supabase Postgres
-- Supabase Storage
-- Supabase Realtime
-- Vitest
+- Vite 7
+- React Router 7
+- Supabase Postgres, Storage, and Realtime
+- Vitest and Testing Library
 - ESLint
 
-## 프로젝트 구조
+## Architecture
+
+```text
+Create page (/)
+  ├─ photo upload or canvas export
+  ├─ Supabase Storage: guestbook-media/posts/*
+  └─ Supabase Postgres: guestbook
+            │
+            └─ Realtime INSERT subscription
+                         │
+Shared wall (/wall) ── post detail ── comments + Realtime
+```
+
+Realtime rows are merged by `id` to prevent duplicates, and subscriptions are removed when the relevant component unmounts.
+
+## Project structure
 
 ```text
 src/
@@ -61,106 +76,47 @@ src/
   types.ts
 supabase/
   schema.sql
-memory-bank/
-  architecture.md
-  implementation-plan.md
-  progress.md
 docs/
   thumbnail.svg
   screenshots/
-    home.png
-    wall.png
 ```
 
-## 실행 방법
-
-의존성을 설치합니다.
+## Run locally
 
 ```powershell
 npm install
-```
-
-환경 변수 파일을 만듭니다.
-
-```powershell
 Copy-Item .env.example .env.local
+npm run dev
 ```
 
-`.env.local`에 Supabase 값을 입력합니다.
+Set the Supabase project values in `.env.local`:
 
 ```env
 VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
-`VITE_SUPABASE_URL`에는 `/rest/v1` 같은 경로를 붙이지 말고 Supabase 프로젝트 루트 URL만 입력해야 합니다.
+Use the project root URL for `VITE_SUPABASE_URL`; do not append `/rest/v1`.
 
-개발 서버를 실행합니다.
+## Supabase setup
 
-```powershell
-npm run dev
-```
+Run [supabase/schema.sql](supabase/schema.sql) in the Supabase SQL Editor. The schema:
 
-## Supabase 설정
+- extends the existing `public.guestbook` table
+- creates or aligns `public.comments`
+- adds indexes for creation time and comment lookup
+- enables MVP read/insert RLS policies
+- creates the public `guestbook-media` bucket
+- allows anonymous upload/read under the `posts/` prefix
+- enables Realtime for `guestbook` and `comments`
 
-Supabase SQL Editor에서 [supabase/schema.sql](supabase/schema.sql)을 실행합니다.
-
-이 스키마는 다음 작업을 수행합니다.
-
-- 기존 `public.guestbook` 테이블 확장
-- `public.comments` 테이블 생성 또는 보정
-- `guestbook.created_at`, `comments(post_id, created_at)` 인덱스 생성
-- MVP용 공개 read/insert RLS 정책 생성
-- `guestbook-media` public Storage bucket 생성
-- `posts/` 경로에 대한 anon upload/read 정책 생성
-- `guestbook`, `comments` Realtime publication 활성화
-
-앱이 기대하는 주요 테이블은 다음과 같습니다.
-
-| 테이블 | 용도 |
+| Resource | Responsibility |
 | --- | --- |
-| `guestbook` | 방명록 post 저장 |
-| `comments` | 방명록별 댓글 저장 |
+| `guestbook` | Guestbook posts |
+| `comments` | Comments linked by `post_id` |
+| `guestbook-media` | Uploaded photos and canvas drawings |
 
-이미지는 `guestbook-media` 버킷의 `posts/photos/` 또는 `posts/drawings/` 하위 경로에 저장됩니다.
-
-## 명령어
-
-```powershell
-npm run dev
-npm test
-npm run lint
-npm run build
-npm run preview
-```
-
-## Vercel 배포
-
-GitHub 저장소를 Vercel에 연결해서 배포하는 방식을 권장합니다.
-
-1. Vercel에서 **Add New Project**를 선택합니다.
-2. GitHub 저장소 `zxcc9867/reailtime-guestbook`을 import합니다.
-3. Framework Preset은 **Vite**로 둡니다.
-4. Build Command는 `npm run build`를 사용합니다.
-5. Output Directory는 `dist`를 사용합니다.
-6. Environment Variables에 다음 값을 추가합니다.
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-7. Deploy를 실행합니다.
-
-CLI로 배포하려면 Vercel CLI 로그인 후 아래 명령을 사용할 수 있습니다.
-
-```powershell
-npm install -g vercel
-vercel
-vercel --prod
-```
-
-Vercel에서도 Supabase 환경 변수는 반드시 프로젝트 설정에 등록해야 합니다.
-
-## 검증
-
-현재 확인한 검증 명령은 다음과 같습니다.
+## Verification
 
 ```powershell
 npm test
@@ -168,14 +124,12 @@ npm run lint
 npm run build
 ```
 
-추가로 브라우저에서 아래 흐름을 수동 확인하는 것이 좋습니다.
+Manual checks should cover text-only, photo, and drawing posts; realtime wall updates in two tabs; realtime comments; modal keyboard behavior; and mobile touch drawing.
 
-- 텍스트만 있는 방명록 작성
-- 사진 방명록 작성
-- 드로잉 방명록 작성
-- 두 브라우저 탭에서 `/wall` 실시간 반영 확인
-- 상세 모달에서 댓글 실시간 반영 확인
+## Deployment
 
-## 보안 메모
+The repository is ready for a Vite deployment on Vercel. Configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, use `npm run build`, and publish the `dist` directory.
 
-MVP는 익명 공개 작성 모델입니다. 공개 행사나 실제 서비스에 연결하기 전에는 rate limiting, moderation, 더 엄격한 Storage 정책, 스팸 방지 전략을 추가하는 것이 좋습니다.
+## Security and current limitations
+
+The MVP intentionally allows anonymous public writes. Before using it for a public event or production service, add authentication where appropriate, rate limiting, moderation and spam controls, upload size/type enforcement, stricter Storage policies, and operational monitoring. The public anon key is designed for browser use, but security depends on correct RLS and Storage policies; never expose the Supabase service-role key.
