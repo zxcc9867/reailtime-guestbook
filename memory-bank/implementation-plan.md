@@ -116,3 +116,11 @@ Manual checks:
 - Confirm `/wall` receives new posts without refresh.
 - Open a post and confirm comments update without refresh in two tabs.
 - Confirm mobile viewport behavior.
+
+## Documentation Convention
+
+- `README.md` is the English default document.
+- `README.ko.md` preserves the Korean documentation.
+- `README.ja.md` provides the Japanese documentation.
+- Every README starts with relative links to all three language files.
+- Features, commands, environment variables, security notes, and project limitations must remain consistent with the repository.
